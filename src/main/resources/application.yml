@@ -1,0 +1,44 @@
+# Puerto donde queda escuchando la API: http://localhost:8080
+server:
+  port: 8080
+
+spring:
+  application:
+    name: casas-embrujadas-api
+
+  # Conexión a MySQL de Laragon (usuario root sin contraseña, igual que en FastFood).
+  # createDatabaseIfNotExist crea la base "casas_embrujadas" si todavía no existe
+  datasource:
+    url: jdbc:mysql://localhost:3306/casas_embrujadas?createDatabaseIfNotExist=true&useSSL=false&allowPublicKeyRetrieval=true&serverTimezone=America/Santiago
+    username: root
+    password:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+  jpa:
+    hibernate:
+      # update: Hibernate crea o actualiza las tablas a partir de las clases @Entity
+      ddl-auto: update
+    show-sql: false
+    open-in-view: false
+
+# Swagger: la documentación queda en http://localhost:8080/swagger-ui.html
+springdoc:
+  swagger-ui:
+    path: /swagger-ui.html
+
+# ---------------------------------------------------------------
+# JWT (paso 6)
+# secret: clave con la que el backend FIRMA los tokens. Si alguien cambia algo del token,
+#         la firma deja de calzar y el backend lo rechaza. En producción se pasa por la variable
+#         de entorno JWT_SECRET para que no quede en el código.
+# access-expiration: duración del token de acceso (30 min)
+# refresh-expiration: duración del token para renovarlo (7 días)
+# ---------------------------------------------------------------
+jwt:
+  secret: ${JWT_SECRET:uOoyBzf3bHPJjAMHUW6rBDrUT22XMiGSjRL2OvffqIn9JMK1oGJSoCWGvZVX2uq9}
+  access-expiration-ms: 1800000
+  refresh-expiration-ms: 604800000
+
+# Orígenes (frontends) que pueden llamar a la API desde el navegador (CORS)
+cors:
+  origenes-permitidos: http://localhost:5173,http://localhost:4173
