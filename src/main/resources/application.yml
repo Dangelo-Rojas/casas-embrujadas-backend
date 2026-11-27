@@ -41,4 +41,4 @@ jwt:
 
 # Orígenes (frontends) que pueden llamar a la API desde el navegador (CORS)
 cors:
-  origenes-permitidos: http://localhost:5173,http://localhost:4173
+  origenes-permitidos: http://localhost:5173,http://localhost:4173,https://casas-embrujadas-frontend*.vercel.app

@@ -101,7 +101,8 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration config = new CorsConfiguration();
-        config.setAllowedOrigins(Arrays.stream(origenesPermitidos.split(",")).map(String::trim).toList());
+        // patrones: así también se aceptan las URL de vista previa de Vercel (casas-embrujadas-frontend-xxxx.vercel.app)
+        config.setAllowedOriginPatterns(Arrays.stream(origenesPermitidos.split(",")).map(String::trim).toList());
         config.setAllowedMethods(List.of("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
         config.setAllowedHeaders(List.of("Authorization", "Content-Type"));
         config.setMaxAge(3600L);
